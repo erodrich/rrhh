@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\System\Repositories\ArticleRepositoryImpl;
+use App\System\Repositories\OccasionRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\System\Repositories\ArticleRepositoryInterface', function () {
             return new ArticleRepositoryImpl;
+        });
+        $this->app->bind('App\System\Repositories\OccasionRepositoryInterface', function () {
+            return new OccasionRepositoryImpl;
         });
     }
 }

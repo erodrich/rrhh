@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\System\Repositories\OccasionRepositoryInterface;
 use App\System\Utilities\CustomLog;
 use Illuminate\Http\Request;
-use App\System\Repositories\ArticleRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 
-class ArticlesController extends Controller
+class OccasionsController extends Controller
 {
-    protected $articleDao;
-    protected $class = "ArticlesController";
+    protected $class = "OccasionsController";
+    protected $occasionDao;
 
-    public function __construct(ArticleRepositoryInterface $articleDao)
+    /**
+     * OccasionsController constructor.
+     */
+    public function __construct(OccasionRepositoryInterface $occasionDao)
     {
-        $this->articleDao = $articleDao;
+        $this->occasionDao = $occasionDao;
     }
 
     /**
@@ -24,8 +27,8 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = $this->articleDao->retrieveAll();
-        return $articles;
+        $occasions = $this->occasionDao->retrieveAll();
+        return $occasions;
     }
 
     /**
@@ -36,19 +39,21 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'body' => 'required'
+            'day' => 'required',
+            'hour' => 'required',
+            'place' => 'required',
         ]);
         if($validator->fails()){
             return response()->json(["message" => "Error en la validacion de campos"], 400);
         }
-        $newArticle = $this->articleDao->save($request->all());
-        if($newArticle){
-            return $newArticle;
+        $data = $request->all();
+        $occasion = $this->occasionDao->save($data);
+        if($occasion){
+            return $occasion;
         }
-        return response()->json(["message" => "Error en la creacion de la noticia"], 400);
+        return response()->json(["message" => "Error en la creacion del evento"], 400);
     }
 
     /**
@@ -59,8 +64,8 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $article = $this->articleDao->retrieveById($id);
-        return $article;
+        $occasion = $this->occasionDao->retrieveById($id);
+        return $occasion;
     }
 
     /**
@@ -72,19 +77,21 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'body' => 'required'
+            'day' => 'required',
+            'hour' => 'required',
+            'place' => 'required',
         ]);
         if($validator->fails()){
-            return response()->json(['message' => "Error en la validacion de campos"], 400);
+            return response()->json(["message" => "Error en la validacion de campos"], 400);
         }
-        $updatedArticle = $this->articleDao->update($request->all(), $id);
-        if($updatedArticle){
-            return $updatedArticle;
+        $data = $request->all();
+        $updateOccasion = $this->occasionDao->update($data, $id);
+        if($updateOccasion){
+            return $updateOccasion;
         }
-        return response()->json(["message" => "Error en la actualizacion de la noticia"], 400);
+        return response()->json(["message" => "Error en la creacion del evento"], 400);
     }
 
     /**
@@ -97,12 +104,12 @@ class ArticlesController extends Controller
     {
         $metodo = "destroy";
 
-        if($this->articleDao->delete($id)){
-            CustomLog::debug($this->class, $metodo, "Se elimino la noticia: ".$id);
+        if($this->occasionDao->delete($id)){
+            CustomLog::debug($this->class, $metodo, "Se elimino el evento: ".$id);
             return response()->json(["message" => "Eliminado"], 400);
         } else {
-            CustomLog::debug($this->class, $metodo, "No existe la noticia: ".$id);
-            return response()->json(["message" => "No existe la noticia"], 400);
+            CustomLog::debug($this->class, $metodo, "No existe el evento: ".$id);
+            return response()->json(["message" => "No existe el evento"], 400);
         }
     }
 }
