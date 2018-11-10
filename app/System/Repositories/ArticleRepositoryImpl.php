@@ -9,6 +9,7 @@
 namespace App\System\Repositories;
 
 use App\Article;
+use App\System\Utilities\ArticleImageManager;
 use App\System\Utilities\CustomLog;
 use Exception;
 use Illuminate\Http\UploadedFile;
@@ -57,7 +58,7 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
         try {
             $this->article->title = $data['title'];
             $this->article->body = $data['body'];
-            $path = $this->article->saveImage(UploadedFile::createFromBase($data['image']));
+            $path = ArticleImageManager::saveFile(UploadedFile::createFromBase($data['image']));
             $this->article->image = $path;
             $this->article->save();
             return $this->article;
@@ -75,7 +76,8 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
             $article->title = $data['title'];
             $article->body = $data['body'];
             if(array_key_exists('image', $data)){
-                $path = $article->updateImage(UploadedFile::createFromBase($data['image']), $article->image);
+                $path = ArticleImageManager::updateFile(UploadedFile::createFromBase($data['image']), $article->image);
+
                 $article->image = $path;
             }
             $article->save();
