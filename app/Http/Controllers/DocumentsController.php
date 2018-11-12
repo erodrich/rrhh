@@ -100,7 +100,7 @@ class DocumentsController extends Controller
 
         if($this->documentDao->delete($id)){
             CustomLog::debug($this->class, $metodo, "Se elimino el documento: ".$id);
-            return response()->json(["message" => "Eliminado"], 400);
+            return response()->json(["message" => "Eliminado"], 200);
         } else {
             CustomLog::debug($this->class, $metodo, "No existe el documento: ".$id);
             return response()->json(["message" => "No existe el documento"], 400);

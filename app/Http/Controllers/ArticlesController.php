@@ -99,7 +99,7 @@ class ArticlesController extends Controller
 
         if($this->articleDao->delete($id)){
             CustomLog::debug($this->class, $metodo, "Se elimino la noticia: ".$id);
-            return response()->json(["message" => "Eliminado"], 400);
+            return response()->json(["message" => "Eliminado"], 200);
         } else {
             CustomLog::debug($this->class, $metodo, "No existe la noticia: ".$id);
             return response()->json(["message" => "No existe la noticia"], 400);

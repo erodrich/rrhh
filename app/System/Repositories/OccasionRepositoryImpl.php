@@ -30,10 +30,10 @@ class OccasionRepositoryImpl implements OccasionRepositoryInterface
     {
         $method = "retrieveAll";
         try {
-            $occasions = $this->occasion->all();
+            $occasions = $this->occasion->paginate(5);
             return $occasions;
         } catch (Exception $ex) {
-            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getTrace());
+            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
             return null;
         }
 
@@ -48,7 +48,7 @@ class OccasionRepositoryImpl implements OccasionRepositoryInterface
             $occasion = $this->occasion->find($id);
             return $occasion;
         } catch (Exception $ex) {
-            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getTrace());
+            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
             return null;
         }
     }

@@ -106,7 +106,7 @@ class OccasionsController extends Controller
 
         if($this->occasionDao->delete($id)){
             CustomLog::debug($this->class, $metodo, "Se elimino el evento: ".$id);
-            return response()->json(["message" => "Eliminado"], 400);
+            return response()->json(["message" => "Eliminado"], 200);
         } else {
             CustomLog::debug($this->class, $metodo, "No existe el evento: ".$id);
             return response()->json(["message" => "No existe el evento"], 400);

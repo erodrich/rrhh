@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -17,7 +16,8 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('occasions', require('./components/Occasion.vue'));
+Vue.component('navbar', require('./components/Navbar'));
 
 // const files = require.context('./', true, /\.vue$/i)
 
