@@ -4,9 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+//require('./bootstrap');
 
-window.Vue = require('vue');
+//window.Vue = require('vue');
+import Vue from 'vue'
+import router from './router'
+import App from './components/App'
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,8 +20,8 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('occasions', require('./components/Occasion.vue'));
-Vue.component('navbar', require('./components/Navbar'));
+//Vue.component('occasions', require('./components/Occasion.vue'));
+//Vue.component('navbar', require('./components/Navbar'));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -32,5 +36,7 @@ Vue.component('navbar', require('./components/Navbar'));
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router,
+    components: { App }
 });

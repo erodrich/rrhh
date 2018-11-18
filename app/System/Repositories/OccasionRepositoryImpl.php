@@ -30,7 +30,7 @@ class OccasionRepositoryImpl implements OccasionRepositoryInterface
     {
         $method = "retrieveAll";
         try {
-            $occasions = $this->occasion->paginate(5);
+            $occasions = $this->occasion->orderBy('created_at', 'desc')->paginate(5);
             return $occasions;
         } catch (Exception $ex) {
             CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
