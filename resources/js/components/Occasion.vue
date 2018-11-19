@@ -1,7 +1,12 @@
 <template>
     <div>
-        <h2>Eventos</h2>
-        <h1 v-model="message">{{ message }}</h1>
+        <h1>Eventos</h1>
+        <div v-if="messageOk" class="alert alert-success" role="alert">
+            {{ messageOk }}
+        </div>
+        <div v-if="messageError" class="alert alert-danger" role="alert">
+            {{ messageError }}
+        </div>
         <form mb-3 @submit.prevent="addOccasion" >
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="title" v-model="occasion.title">
@@ -65,7 +70,8 @@
                 pagination: {},
                 edit: false,
                 bootstrapStyling: true,
-                message: ''
+                messageOk: '',
+                messageError: ''
             }
         },
         components: {
@@ -125,11 +131,11 @@
                         .then(res => {
                             console.log(res.data)
                             this.prepareResource();
-                            this.message = "Evento añadido correctamente"
+                            this.messageOk = "Evento añadido correctamente"
                             this.fetchOccasions()
                         })
                         .catch(err => {
-                            this.message = err.response.data.message
+                            this.messageError = err.response.data.message
 
 
                         })
@@ -139,7 +145,7 @@
                             this.fetchOccasions();
                         })
                         .catch(err => {
-                            this.message = err.response.data.message;
+                            this.messageError = err.response.data.message;
                         })
 
                 }
@@ -151,7 +157,7 @@
                 this.occasion.day = occasion.day;
                 this.occasion.hour = occasion.hour;
                 this.occasion.place = occasion.place;
-                this.addOccasion()
+                //this.addOccasion()
             }
 
         }

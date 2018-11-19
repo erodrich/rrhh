@@ -29,11 +29,11 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
     {
         $method = "retrieveAll";
         try {
-            $articles = $this->article->all();
+            $articles = $this->article->orderBy('created_at', 'desc')->paginate(5);
             return $articles;
 
         } catch (Exception $ex) {
-            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getTrace());
+            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
             return null;
         }
     }
@@ -46,7 +46,7 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
             return $article;
 
         } catch (Exception $ex) {
-            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getTrace());
+            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
             return null;
         }
     }
@@ -63,7 +63,7 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
             $this->article->save();
             return $this->article;
         } catch (Exception $ex){
-            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getTrace());
+            CustomLog::error($this->class, $method, "Internal Server Error: " . $ex->getMessage());
             return null;
         }
 
