@@ -58,8 +58,10 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
         try {
             $this->article->title = $data['title'];
             $this->article->body = $data['body'];
-            $path = ArticleImageManager::saveFile(UploadedFile::createFromBase($data['image']));
-            $this->article->image = $path;
+            if(array_key_exists('image', $data) && ($data['image'] instanceof UploadedFile)){
+                $path = ArticleImageManager::saveFile(UploadedFile::createFromBase($data['image']));
+                $this->article->image = $path;
+            }
             $this->article->save();
             return $this->article;
         } catch (Exception $ex){
@@ -75,7 +77,7 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
         if ($article) {
             $article->title = $data['title'];
             $article->body = $data['body'];
-            if(array_key_exists('image', $data)){
+            if(array_key_exists('image', $data) && ($data['image'] instanceof UploadedFile)){
                 $path = ArticleImageManager::updateFile(UploadedFile::createFromBase($data['image']), $article->image);
 
                 $article->image = $path;
