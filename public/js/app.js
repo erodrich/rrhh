@@ -52113,6 +52113,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'Article',
@@ -52190,7 +52196,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", [_vm._v("Noticias")]),
+      _c("h1", { staticClass: "display-4" }, [_vm._v("Noticias")]),
       _vm._v(" "),
       _c(
         "router-link",
@@ -52271,7 +52277,18 @@ var render = function() {
           "div",
           { key: article.id, staticClass: "card card-body mb-2" },
           [
-            _c("h3", [_vm._v(_vm._s(article.title))]),
+            _c("img", {
+              attrs: {
+                src: "/storage/" + article.image,
+                alt: "Imagen de noticia"
+              }
+            }),
+            _vm._v(" "),
+            _c("div", [
+              _c("h3", [_vm._v(_vm._s(article.title))]),
+              _vm._v(" "),
+              _c("em", [_vm._v("Creado: " + _vm._s(article.created_at))])
+            ]),
             _vm._v(" "),
             _c("hr"),
             _vm._v(" "),

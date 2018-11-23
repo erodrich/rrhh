@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Noticias</h1>
+        <h1 class="display-4">Noticias</h1>
         <router-link 
                 :to="{ name: 'noticiasForm' }" 
                 tag="button"
@@ -18,8 +18,14 @@
                 </li>
             </ul>
         </nav>
+        
         <div class="card card-body mb-2" v-for="(article) in articles" :key="article.id">
-            <h3>{{ article.title }}</h3>
+            <img  :src="`/storage/${article.image}`" alt="Imagen de noticia" />
+            <div>
+                <h3>{{ article.title }}</h3>
+                <em>Creado: {{ article.created_at}}</em>
+            </div>
+            
             <hr>
             <router-link 
                 :to="{ name: 'noticiasForm', params: { id: article.id } }" 
