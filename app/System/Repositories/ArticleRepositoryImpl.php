@@ -77,9 +77,13 @@ class ArticleRepositoryImpl implements ArticleRepositoryInterface
         if ($article) {
             $article->title = $data['title'];
             $article->body = $data['body'];
+            
             if(array_key_exists('image', $data) && ($data['image'] instanceof UploadedFile)){
-                $path = ArticleImageManager::updateFile(UploadedFile::createFromBase($data['image']), $article->image);
-
+                if($article->image){
+                    $path = ArticleImageManager::updateFile(UploadedFile::createFromBase($data['image']), $article->image);
+                } else {
+                    $path = ArticleImageManager::saveFile(UploadedFile::createFromBase($data['image']));
+                }
                 $article->image = $path;
             }
             $article->save();

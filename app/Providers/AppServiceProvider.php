@@ -6,6 +6,7 @@ use App\System\Repositories\ArticleRepositoryImpl;
 use App\System\Repositories\DocumentRepositoryImpl;
 use App\System\Repositories\OccasionRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {

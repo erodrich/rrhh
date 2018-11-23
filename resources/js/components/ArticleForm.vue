@@ -17,21 +17,16 @@
                 <!-- <input type="textarea" class="form-control" placeholder="body" > -->
             </div>
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file"
-                       id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01"
-                       ref="article_image"
-                       class="custom-file-input"
-                       placeholder="Añadir imagen"
-                       @change="handleFileUpload()">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                </div>
+                <button class="btn btn-info" type="button" @click="openInput()">Cargar imagen</button>
+                <input type="file"
+                   id="article_image"
+                   ref="article_image"
+                   style="display:none"
+                   @change="handleFileUpload()" />
             </div>
-            <img v-if="edit" :src="`/storage/${article.image}`" style="width: 200px; height: 200px;"/>
+            <div v-if="!hasImageChange && edit">
+                <img :src="`/storage/${article.image}`" style="width: 200px; "/>
+            </div>
             <button type="submit" class="btn btn-warning btn-block mb-2 mt-2">Guardar</button>
             <router-link 
                 :to="{ name: 'noticias' }" 
@@ -50,12 +45,13 @@ export default {
             article: {
                 title: '',
                 body: '',
-                image: {}
+                image: null,
             },
             edit: false,
             messageOk: '',
             messageError: '',
-            article_id: ''
+            article_id: '',
+            hasImageChange: false,
         }
     },
     props: ['id'],
@@ -69,8 +65,14 @@ export default {
         
     },
     methods: {
+        openInput(){
+            var inputFile = document.getElementById('article_image');
+            inputFile.click();
+        },
         handleFileUpload(e) {
+            console.log("calling file handle");
             this.article.image = this.$refs.article_image.files[0]
+            this.hasImageChange = true;
         },
         addArticle() {
             let formData = new FormData();
@@ -98,6 +100,7 @@ export default {
                     .then(res => {
                         console.log(res);
                         this.messageOk = 'Elemento actualizado'
+                        this.fetchArticle(this.id);
                     })
                     .catch(err => {
                         this.messageError = err.response.data.message;
@@ -114,6 +117,7 @@ export default {
                 this.article.image = res.image;
             })
             .catch(err => this.messageError = err.response.data.message)
+            this.hasImageChange = false;
         },
         editArticle(article) {
             this.edit = true;
