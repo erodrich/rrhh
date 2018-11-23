@@ -26,7 +26,7 @@
                 tag="button"
                 class="btn btn-warning mb-2">Edit
             </router-link>
-            <!-- <button class="btn btn-warning mb-2" @click="editArticle(article)">Edit</button> -->
+            <button class="btn btn-danger mb-2" @click="deleteArticle(article.id)">Delete</button>
         </div>
     </div>
 

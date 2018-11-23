@@ -52285,6 +52285,19 @@ var render = function() {
                 }
               },
               [_vm._v("Edit\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger mb-2",
+                on: {
+                  click: function($event) {
+                    _vm.deleteArticle(article.id)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
             )
           ],
           1
