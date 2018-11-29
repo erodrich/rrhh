@@ -20,10 +20,13 @@
         </nav>
         
         <div class="card card-body mb-2" v-for="(article) in articles" :key="article.id">
-            <img  :src="`/storage/${article.image}`" alt="Imagen de noticia" />
+            
             <div>
+                
+                <img  :src="`/storage/${article.image}`" alt="Imagen de noticia"  style="width: 200px float: left;"/>
                 <h3>{{ article.title }}</h3>
                 <em>Creado: {{ article.created_at}}</em>
+                
             </div>
             
             <hr>

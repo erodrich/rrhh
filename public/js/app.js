@@ -52119,6 +52119,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'Article',
@@ -52277,14 +52280,15 @@ var render = function() {
           "div",
           { key: article.id, staticClass: "card card-body mb-2" },
           [
-            _c("img", {
-              attrs: {
-                src: "/storage/" + article.image,
-                alt: "Imagen de noticia"
-              }
-            }),
-            _vm._v(" "),
             _c("div", [
+              _c("img", {
+                staticStyle: { width: "200px float: left" },
+                attrs: {
+                  src: "/storage/" + article.image,
+                  alt: "Imagen de noticia"
+                }
+              }),
+              _vm._v(" "),
               _c("h3", [_vm._v(_vm._s(article.title))]),
               _vm._v(" "),
               _c("em", [_vm._v("Creado: " + _vm._s(article.created_at))])
